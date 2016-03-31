@@ -39,7 +39,7 @@
 		    projectOriginUrl = projectUrl + '/' + repoUrl;
 
 		    var getPRs = function(from, size, projectOriginUrl, fqBranchName) {
-		      var prApiUrl = '/rest/api/1.0' + projectOriginUrl + '/pull-requests?direction=OUTGOING&at=' + fqBranchName + '&state=ALL&start=' + from + '&limit=' + size;
+		      var prApiUrl = '/' + urlJunction + 'rest/api/1.0' + projectOriginUrl + '/pull-requests?direction=OUTGOING&at=' + fqBranchName + '&state=ALL&start=' + from + '&limit=' + size;
 		      return jQuery.get(prApiUrl);
 		    };
 
@@ -156,25 +156,21 @@
 		 */
 		function searchUsersAsync(term) {
 			var deferred = jQuery.Deferred();
-
 			var searchParams = { avatarSize: 32, permission: "LICENSED_USER", start: 0, filter: term };
 
-			jQuery.get( "/rest/api/latest/users", searchParams)
-			.done(function( data ) {
-				if (data.values.length > 0)
-				{
+			jQuery.get("/" + urlJunction + "rest/api/latest/users", searchParams).done(function(data) {
+				if (data.values.length > 0) {
 				    var rawd = data.values[0];
 				    var select2Data = {
-				            id: rawd.name,
-				            text: rawd.displayName || rawd.name,
-				            item: rawd };
+			            id: rawd.name,
+			            text: rawd.displayName || rawd.name,
+			            item: rawd };
 
 				    deferred.resolve(select2Data);
 			  	}
 
 			  	deferred.resolve(null);	    
-		  	})
-			.fail(function(){
+		  	}).fail(function() {
 				// use resolve instead of reject to avoid prematured end with $.when
 				deferred.resolve(null);
 			});
@@ -515,7 +511,7 @@
 	  		var pr = pageState.getPullRequest();
 
 	  		// get pr changes details
-	  		var url = '/rest/api/1.0' +  pr.link.url + '/changes'
+	  		var url = '/' + urlJunction + 'rest/api/1.0' +  pr.link.url + '/changes'
 
 	  		jQuery.get(url).done(function(prDetails) {
 	  			var conflictsCount = 0;
@@ -623,7 +619,7 @@
 			  var requests = [];
 			  // loop through PRs and request activities
 			  allPR.forEach(function(pr){
-			    requests.push(jQuery.get('/rest/api/1.0' + pr.link.url + '/activities?avatarSize=96').done(function(activityList){
+			    requests.push(jQuery.get('/' + urlJunction + 'rest/api/1.0' + pr.link.url + '/activities?avatarSize=96').done(function(activityList){
 			    	// get comments after PR was updated
 			    	jQuery.each(activityList.values, function(index, activity){
 						jQuery.extend(activity, { pullrequest: pr });

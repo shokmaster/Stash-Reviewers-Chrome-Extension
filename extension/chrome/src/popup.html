@@ -27,14 +27,34 @@
       </nav>
       <div class="container content">
 
-      <div class="alert alert-info" role="alert">
-        <span class="block">Json format:</span>          
-        <code>{ "groups": [{ "groupName":"group name", "reviewers": ["reviewer 1 name or email", "reviewer 2 name or email"] } ] }</code>
-      </div>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  JSON format example <span class="caret"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+<pre>{
+    "groups": [{
+        "groupName": "group name",
+        "reviewers": [
+            "reviewer 1 name or email",
+            "reviewer 2 name or email"
+        ]
+    }]
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
       
       <div>
           <div class="form-group">
-            <label for="text_json">json:</label>
+            <label for="text_json">JSON:</label>
             <textarea class="form-control" rows="5" id="text_json"></textarea>
           </div>
           
@@ -43,8 +63,17 @@
             <input type="text" class="form-control" id="hipchat_username" placeholder="HipChat username without @">
           </div>-->
 
-          <span class="pull-left" style="font-size:xx-small">source: <a href="https://goo.gl/yDp4jB">https://goo.gl/yDp4jB</a></span>
-          <button type="button" class="btn btn-primary pull-right" id="bt_save">save</button>
+          <div class="form-group">
+            <label for="text_junction">Junction:</label>
+            <input type="text" class="form-control" id="text_junction" placeholder="Example: stash/" />
+            <p class="help-block small">Part to complement the URL (://domain[junction/]endpoint/)</p>
+          </div>
+
+          <span class="pull-left" style="font-size:xx-small">source: <a href="https://goo.gl/1l9SRD">https://goo.gl/1l9SRD</a></span>
+          <div class="pull-right">
+            <button type="button" class="btn btn-primary" id="bt_save">Save</button>
+            <button type="button" class="btn btn-link" id="bt_close">Close</button>
+          </div>
       </div>   
 
     </div> <!-- /container --> 

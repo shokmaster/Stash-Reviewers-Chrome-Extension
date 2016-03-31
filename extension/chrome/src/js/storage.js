@@ -3,6 +3,7 @@ var storage = (function() {
 
     const REVIEWERS_KEY = 'stashplugin.groups_reviewers';
     const HIPCHAT_KEY = 'stashplugin.hipchat';
+    const JUNCTION_KEY = 'stashplugin.junction';
 
     /**
         @method
@@ -51,10 +52,26 @@ var storage = (function() {
         chrome.storage.sync.set(data, callback);
     }
 
+    function saveJunction(string, callback) {
+        var data = {};
+        data[JUNCTION_KEY] = string
+        chrome.storage.sync.set(data, callback);
+    }
+
+    function loadJunction(callback) {
+        chrome.storage.sync.get(null, function(items){
+            if (callback) {
+                callback(items[JUNCTION_KEY] || ''); // Default junction is empty
+            }
+        });
+    }
+
     return {
-        saveGroups: saveGroups,
-        loadGroups: loadGroups,
-        loadHipChatUsername: loadHipChatUsername,
-        saveHipChatUsername: saveHipChatUsername
+        saveGroups,
+        loadGroups,
+        loadHipChatUsername,
+        saveHipChatUsername,
+        saveJunction,
+        loadJunction
     };
 })();

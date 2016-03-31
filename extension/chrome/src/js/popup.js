@@ -7,13 +7,29 @@ $( document ).ready(function() {
     	$('#hipchat_username').val(username);    	
     });
 
+	storage.loadJunction(function(item) {
+		$('#text_junction').val(item);
+	});
+
     $('#bt_save').click(function(){
+    	var btn = $(this);
     	var newValue = $('#text_json').val();    	
+		var newJunction = $('#text_junction').val();
+
     	storage.saveGroups(newValue, function(){
     		//var username = $('#hipchat_username').val();    	
 	    	//storage.saveHipChatUsername(username, function(){
-	    		alert('saved!');
+	    	//	alert('json saved!');
 	    	//});
-    	});
+			storage.saveJunction(newJunction, function() {
+				btn.text('Saved!');
+				btn.removeClass('btn-primary').addClass('btn-success');
+				//alert('Saved!');
+	    	});
+		});
     });
+
+    $('#bt_close').click(function() {
+    	window.close();
+    })
 });
