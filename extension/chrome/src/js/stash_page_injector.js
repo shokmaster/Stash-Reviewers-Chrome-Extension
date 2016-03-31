@@ -1456,6 +1456,13 @@
 		var pageState;
 		var loadRequirement = jQuery.Deferred();
 
+        // FIX ISSUE: https://github.com/dragouf/Stash-Reviewers-Chrome-Extension/issues/5#issue-138328819
+        var loadAuiFlag = jQuery.Deferred();
+        WRM.require("wr!" + 'com.atlassian.auiplugin:aui-flag').then(function(d) {
+            loadAuiFlag.resolve();
+            // To test it, put this on chrome console: require('aui/flag')
+        });
+
 		try {
 			pageState = require('stash/api/util/state');
 			loadRequirement.resolve();
@@ -1467,7 +1474,7 @@
 			});
 		}
 		
-		jQuery.when(loadRequirement).done(function(){		
+		jQuery.when(loadRequirement, loadAuiFlag).done(function() {
 			var user = pageState.getCurrentUser();
 			var project = pageState.getProject();
 			var repository = pageState.getRepository();
