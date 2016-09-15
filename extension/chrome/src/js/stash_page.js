@@ -1480,7 +1480,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 				window.communication.runtime.sendMessage(window.chromeExtId, {
 					method: 'GET',
 					action: 'xhttp',
-					url: 'https://raw.githubusercontent.com/dragouf/Stash-Reviewers-Chrome-Extension/master/version'
+					url: 'https://raw.githubusercontent.com/shokmaster/Stash-Reviewers-Chrome-Extension/master/version'
 				}, function(data) {
 					if(!data) {
 						data.response = 'cant.reach.github';
@@ -1503,7 +1503,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 							body = "Can't connect to github to check version.";
 						}
 
-						body += '<br><br><a href="https://github.com/dragouf/Stash-Reviewers-Chrome-Extension/blob/master/history" target="_blank">See history (repository)</a>';
+						body += '<br><br><a href="https://github.com/shokmaster/Stash-Reviewers-Chrome-Extension/blob/master/history" target="_blank">See history (repository)</a>';
 						body += ' <a id="skipVersionLink" href="javascript:window.hideStashRGEVersion();" style="float:right">Skip this version</a>';
 
 						var flag = auiFlag({
