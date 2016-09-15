@@ -1,3 +1,11 @@
+/**
+ * https://my.server.com/[URL_JUNCTION]/rest/api/...
+ * 
+ * @property URL_JUNCTION
+ * @type String
+ */
+window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
+
 (function() {
 	// bitbucket page must have require function
 	if(typeof window.define === 'undefined' || typeof window.require === 'undefined' || typeof window.bitbucket === 'undefined')
@@ -36,7 +44,7 @@
 
 		function buildSlug(pageState) {
 			if(pageState.links && pageState.links.self) {
-				return pageState.links.self[0].href.replace(getSiteBaseURl(), '');
+				return pageState.links.self[0].href.replace(getSiteBaseURl(), '').replace('stash/', '');
 			}
 			else return '';
 		}
@@ -207,7 +215,7 @@
 			projectOriginUrl = projectUrl + '/' + repoUrl;
 
 			var getPRs = function(from, size, projectOriginUrl, fqBranchName) {
-			var prApiUrl = '/rest/api/1.0' + projectOriginUrl + '/pull-requests?direction=OUTGOING&at=' + fqBranchName + '&state=ALL&start=' + from + '&limit=' + size;
+			var prApiUrl = window.URL_JUNCTION + '/rest/api/1.0' + projectOriginUrl + '/pull-requests?direction=OUTGOING&at=' + fqBranchName + '&state=ALL&start=' + from + '&limit=' + size;
 			return jQuery.get(prApiUrl);
 			};
 
@@ -328,7 +336,7 @@
 
 			var searchParams = { avatarSize: 32, permission: "LICENSED_USER", start: 0, filter: term };
 
-			jQuery.get( "/rest/api/latest/users", searchParams)
+			jQuery.get(window.URL_JUNCTION + "/rest/api/latest/users", searchParams)
 			.done(function( data ) {
 				if (data.values.length > 0)
 				{
@@ -626,7 +634,7 @@
 		//////////////////////////////////////////////////// dropdoan list with git checkout commands
 		function retrieveLastCommitOfBranch(repoBrowseUrl, branchPath) {
 			var relativeUrl = repoBrowseUrl.replace('browse', 'commits');
-			var url = '/rest/api/1.0' + relativeUrl + '?until=' + branchPath + '&limit=1';
+			var url = window.URL_JUNCTION + '/rest/api/1.0' + relativeUrl + '?until=' + branchPath + '&limit=1';
 
 			return jQuery.get(url)
 			.then(function(data) {
@@ -787,7 +795,7 @@
 			var pr = pageState.getPullRequest();
 
 			// get pr changes details
-			var url = '/rest/api/1.0' + urlUtil.buildSlug(pr) + '/changes'
+			var url = window.URL_JUNCTION + '/rest/api/1.0' + urlUtil.buildSlug(pr) + '/changes'
 
 			jQuery.get(url).done(function(prDetails) {
 				var conflictsCount = 0;
@@ -938,7 +946,7 @@
 			var requests = [];
 			// loop through PRs and request activities
 			allPR.forEach(function(pr){
-				requests.push(jQuery.get('/rest/api/1.0' + urlUtil.buildSlug(pr) + '/activities?avatarSize=96').done(function(activityList){
+				requests.push(jQuery.get(window.URL_JUNCTION + '/rest/api/1.0' + urlUtil.buildSlug(pr) + '/activities?avatarSize=96').done(function(activityList){
 					// get comments after PR was updated
 					jQuery.each(activityList.values, function(index, activity){
 						jQuery.extend(activity, { pullrequest: pr });

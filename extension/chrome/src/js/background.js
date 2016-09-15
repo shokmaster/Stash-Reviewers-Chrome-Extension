@@ -1,3 +1,11 @@
+/**
+ * https://my.server.com/[URL_JUNCTION]/rest/api/...
+ * 
+ * @property URL_JUNCTION
+ * @type String
+ */
+window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
+
 // ff webextensions workaround
 chrome = chrome || browser;
 var onMessage = chrome.runtime.onMessageExternal;
@@ -67,8 +75,8 @@ function retrieveActivities() {
 		var allPR = [];
 		var deferredResult = jQuery.Deferred();
 		var params = "?start=0&limit=1000&avatarSize=64&withAttributes=true&state=OPEN&order=oldest&role=";
-		var urlPR = items.currentStashBaseUrl + "/rest/inbox/latest/pull-requests" + params;
-		var urlPRNew = items.currentStashBaseUrl + "/rest/api/latest/inbox/pull-requests" + params;
+		var urlPR = items.currentStashBaseUrl + window.URL_JUNCTION + "/rest/inbox/latest/pull-requests" + params;
+		var urlPRNew = items.currentStashBaseUrl + window.URL_JUNCTION + "/rest/api/latest/inbox/pull-requests" + params;
 
 		var buildUrlPR = function(url, role){
 		  return url + role;
@@ -120,7 +128,7 @@ function retrieveActivities() {
 				var prLink = '';
 				if(pr.links && pr.links.self) {
 					prLink = pr.links.self[0].href.replace(items.currentStashBaseUrl, '');
-					prLink = items.currentStashBaseUrl + '/rest/api/1.0' + prLink + '/activities?avatarSize=64';
+					prLink = items.currentStashBaseUrl + window.URL_JUNCTION + '/rest/api/1.0' + prLink + '/activities?avatarSize=64';
 				}
 
 				if(prLink) {
