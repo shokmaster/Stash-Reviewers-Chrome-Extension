@@ -22,7 +22,7 @@ var extensionStorage = (function() {
 		forkorigin: true,
 		prtemplate: true,
 		prconflicts: true,
-		checkversion: true
+		checkversion: false
 	};
 
 	var cloudStorage = chrome.storage.sync;
