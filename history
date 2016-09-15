@@ -1,3 +1,7 @@
+3.0.0 (this fork)
+===================
+- feature: add url junction '/stash'
+
 2.2.8
 ===================
 - feature: add an option to disable check for new notification in background
