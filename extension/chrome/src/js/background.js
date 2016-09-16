@@ -127,7 +127,7 @@ function retrieveActivities() {
 			allPR.forEach(function(pr){
 				var prLink = '';
 				if(pr.links && pr.links.self) {
-					prLink = pr.links.self[0].href.replace(items.currentStashBaseUrl, '');
+					prLink = pr.links.self[0].href.replace(items.currentStashBaseUrl, '').replace('stash/', '');
 					prLink = items.currentStashBaseUrl + window.URL_JUNCTION + '/rest/api/1.0' + prLink + '/activities?avatarSize=64';
 				}
 
