@@ -1,6 +1,6 @@
 /**
  * https://my.server.com/[URL_JUNCTION]/rest/api/...
- * 
+ *
  * @property URL_JUNCTION
  * @type String
  */
@@ -190,6 +190,6 @@ function pingAllExistingTabs() {
 // Click on extension icon
 chrome.browserAction.onClicked.addListener(function(tab) {
 	chrome.storage.local.get(['currentStashBaseUrl'], function(items) {
-		chrome.tabs.create({'url': items.currentStashBaseUrl + '/'}, function(tab) {});
+		chrome.tabs.create({'url': items.currentStashBaseUrl + window.URL_JUNCTION + '/'}, function(tab) {});
 	});
 });

@@ -1,6 +1,6 @@
 /**
  * https://my.server.com/[URL_JUNCTION]/rest/api/...
- * 
+ *
  * @property URL_JUNCTION
  * @type String
  */
@@ -73,7 +73,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 		urlUtil
 	) {
 		'use strict';
-		function addCheckoutLink(branchId) {
+		function addCheckoutLink(branchId) { return; // :)
 			var project = pageState.getProject();
 			var repository = pageState.getRepository();
 			var ref = pageState.getRef();
@@ -211,8 +211,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 			}
 
 			// get project origin from ref and get PR with branch name
-			var projectOriginUrl = urlUtil.buildSlug(ref.repository.origin).replace('/browse', '');
-			projectOriginUrl = projectUrl + '/' + repoUrl;
+			var projectOriginUrl = projectUrl + '/' + repoUrl;
 
 			var getPRs = function(from, size, projectOriginUrl, fqBranchName) {
 			var prApiUrl = window.URL_JUNCTION + '/rest/api/1.0' + projectOriginUrl + '/pull-requests?direction=OUTGOING&at=' + fqBranchName + '&state=ALL&start=' + from + '&limit=' + size;
@@ -262,7 +261,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 				var $a = jQuery('<a>',{
 					text: pr.state,
 					title: title,
-					href: urlUtil.buildSlug(pr),
+					href: window.URL_JUNCTION + urlUtil.buildSlug(pr),
 					class: 'aui-lozenge declined aui-lozenge-subtle pull-request-list-trigger pull-request-state-lozenge'
 				});
 				if(pr.state === 'OPEN'){
@@ -287,7 +286,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 		function addForkOriginLink(branchRefId) {
 			var repository = pageState.getRepository();
 			if(repository && repository.origin && repository.origin.links) {
-				var $link = jQuery('<a style="font-size: small;margin-left:10px;">forked from '+repository.origin.project.key+ '/' +repository.origin.name+'</a>').attr('href', urlUtil.buildSlug(repository.origin));
+				var $link = jQuery('<a style="font-size: small;margin-left:10px;">forked from '+repository.origin.project.key+ '/' +repository.origin.name+'</a>').attr('href', window.URL_JUNCTION + urlUtil.buildSlug(repository.origin));
 				jQuery('h2.page-panel-content-header').append($link);
 			}
 		}
@@ -613,7 +612,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 				$branchOriginSpan = jQuery('.source-branch');
 			}
 			if ($branchOriginSpan.length) {
-				var urlFrom = urlUtil.buildSlug(pr.fromRef.repository);
+				var urlFrom = window.URL_JUNCTION + urlUtil.buildSlug(pr.fromRef.repository);
 				urlFrom += '?at=' + pr.fromRef.id;
 				//$branchOriginSpan.css('cursor', 'pointer').click(function(){ window.location.href = urlFrom; }).data('url', urlFrom);
 				$branchOriginSpan.wrap(jQuery('<a></a>', { href: urlFrom }));
@@ -624,7 +623,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 				$branchDestinationSpan = jQuery('.target-branch');
 			}
 			if ($branchDestinationSpan.length) {
-				var urlTo = urlUtil.buildSlug(pr.toRef.repository);
+				var urlTo = window.URL_JUNCTION + urlUtil.buildSlug(pr.toRef.repository);
 				urlTo += '?at=' + pr.toRef.id;
 				//$branchDestinationSpan.css('cursor', 'pointer').click(function(){ window.location.href = urlTo; }).data('url', urlTo);
 				$branchDestinationSpan.wrap(jQuery('<a></a>', { href: urlTo }));
@@ -1136,7 +1135,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 				var $msgRow = jQuery('<td class="comment message markup">'+activity.comment.text+'</td>');
 				var $userRow = jQuery('<td class="author">'+activity.comment.author.name+'</td>');
 				var $countRow = jQuery('<td class="comment-count"></td>');
-				var $prRow = jQuery('<td class="title"><a href="' + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId='+activity.comment.id+'" title="{'+activity.pullrequest.author.user.name+'} '+activity.pullrequest.title+'">'+activity.pullrequest.title+'</a></td>');
+				var $prRow = jQuery('<td class="title"><a href="' + window.URL_JUNCTION + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId='+activity.comment.id+'" title="{'+activity.pullrequest.author.user.name+'} '+activity.pullrequest.title+'">'+activity.pullrequest.title+'</a></td>');
 				var $updatedRow = jQuery('<td class="comment-count"></td>').html(moment(activity.activityDate).fromNow());
 
 				var isLineUnread = hasUnreadActivities(activity, NotificationType.panel);
@@ -1380,7 +1379,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 					});
 
 					notification.onclick = function () {
-						window.open(urlUtil.getSiteBaseURl() + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId=' + activity.comment.id);
+						window.open(urlUtil.getSiteBaseURl() + window.URL_JUNCTION + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId=' + activity.comment.id);
 					};
 				}
 
@@ -1410,7 +1409,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 						});
 
 						notification.onclick = function () {
-							window.open(urlUtil.getSiteBaseURl() + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId=' + activity.comment.id);
+							window.open(urlUtil.getSiteBaseURl() + window.URL_JUNCTION + urlUtil.buildSlug(activity.pullrequest) + '/overview?commentId=' + activity.comment.id);
 						};
 					}
 
@@ -1440,7 +1439,7 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 			// periodically poll server for update
 			if (typeof window.chromeExtId !== 'undefined' && typeof window.chrome !== 'undefined')  {
 				// use background worker to centralized request and avoid to much server queries
-				window.communication.runtime.sendMessage(window.chromeExtId, { action: 'setUrl', url: urlUtil.getSiteBaseURl() });
+				window.communication.runtime.sendMessage(window.chromeExtId, { action: 'setUrl', url: urlUtil.getSiteBaseURl() + window.URL_JUNCTION });
 
 				var activitiesCallback = function (eventArgs) {
 					var activities = filterAnOrderActivities(eventArgs.activities);

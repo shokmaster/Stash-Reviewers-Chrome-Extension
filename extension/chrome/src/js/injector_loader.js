@@ -106,7 +106,7 @@ function attachListener() {
 			window.postMessage(data, '*');
 		}
 		else if(message && message.action === 'ping') {
-			chrome.runtime.sendMessage({ action: 'pong', url: getSiteBaseURl()  });
+			chrome.runtime.sendMessage({ action: 'pong', url: getSiteBaseURl() + window.URL_JUNCTION  });
 		}
 	});
 
