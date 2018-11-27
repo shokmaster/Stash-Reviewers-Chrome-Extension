@@ -4,7 +4,7 @@
  * @property URL_JUNCTION
  * @type String
  */
-window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
+window.URL_JUNCTION = window.URL_JUNCTION || window.location.pathname.split('/', 2).join('/');
 
 // ff webextensions workaround
 chrome = chrome || browser;

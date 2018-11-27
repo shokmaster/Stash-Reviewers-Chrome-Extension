@@ -192,8 +192,6 @@ var extensionStorage = (function() {
 		saveRepoMap: saveRepoMap,
 		loadFeatures: loadFeatures,
 		saveFeatures: saveFeatures,
-		saveServer: saveServer,
-		loadServer: loadServer,
 		backgroundStates: {
 			enable:'1',
 			disable:'0'

@@ -5,7 +5,7 @@ $( document ).ready(function() {
 
 	function bindSaveClick() {
 		$('#bt_save').click(function() {
-			$.when(saveGroups(), saveServer(), saveHipChat(), saveTemplate(), saveNotification(), saveRepoMapping(), saveFeatures())
+			$.when(saveGroups(), saveHipChat(), saveTemplate(), saveNotification(), saveRepoMapping(), saveFeatures())
 			.done(displaySavedLabel)
 			.fail(displayErrorLabel);
 		});
@@ -64,11 +64,6 @@ $( document ).ready(function() {
 			}
 		});
 
-		extensionStorage.loadServer(function(server) {
-			console.log("server", server);
-
-		});
-
 		loadFeaturesStates();
 	}
 
@@ -103,16 +98,6 @@ $( document ).ready(function() {
 			def.reject({ msg: e.message, error: e });
 		}
 		extensionStorage.saveGroups(newValue, function() {
-			def.resolve();
-		});
-
-		return def.promise();
-	}
-
-	function saveServer() {
-		var def = $.Deferred();
-		var server = $('input[name="server"]:checked')[0].value;
-		extensionStorage.saveServer(server, function() {
 			def.resolve();
 		});
 
