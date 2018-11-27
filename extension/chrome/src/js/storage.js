@@ -9,6 +9,7 @@ var extensionStorage = (function() {
 	const NOTIFTYPE_KEY = 'stashplugin.notiftype';
 	const REPOMAP_KEY = 'stashplugin.repomap';
 	const FEATURES_KEY = 'stashplugin.features';
+	const SERVER_KEY = 'stashplugin.server';
 
 	var defaultFeatures = {
 		reviewersgroup: true,
@@ -147,6 +148,20 @@ var extensionStorage = (function() {
 		cloudStorage.set(data, callback);
 	}
 
+	function saveServer(string, callback) {
+		var data = {};
+		data[SERVER_KEY] = string;
+		cloudStorage.set(data, callback);
+	}
+
+	function loadServer(callback) {
+		cloudStorage.get(null, function(items) {
+			if (callback) {
+				callback(items[SERVER_KEY]);
+			}
+		});
+	}
+
 	function loadFeatures(callback) {
 		cloudStorage.get(null, function(items){
 			if (callback) {
@@ -177,6 +192,8 @@ var extensionStorage = (function() {
 		saveRepoMap: saveRepoMap,
 		loadFeatures: loadFeatures,
 		saveFeatures: saveFeatures,
+		saveServer: saveServer,
+		loadServer: loadServer,
 		backgroundStates: {
 			enable:'1',
 			disable:'0'

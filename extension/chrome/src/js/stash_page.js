@@ -44,7 +44,8 @@ window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
 
 		function buildSlug(pageState) {
 			if(pageState.links && pageState.links.self) {
-				return pageState.links.self[0].href.replace(getSiteBaseURl(), '').replace('stash/', '');
+				var stashPath = window.URL_JUNCTION.slice(1) + '/';
+				return pageState.links.self[0].href.replace(getSiteBaseURl(), '').replace(stashPath, '');
 			}
 			else return '';
 		}

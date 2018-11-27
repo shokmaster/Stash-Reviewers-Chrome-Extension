@@ -9,6 +9,7 @@ function injectEngine(){
 	var notifTypeDef = $.Deferred();
 	var repomapDef = $.Deferred();
 	var featuresDef = $.Deferred();
+	var serverDef = $.Deferred();
 
 	var manifest = chrome.runtime.getManifest();
 	createInlineScript("var stashRGEVersion = '" + manifest.version + "'; var chromeExtId='" + extensionId + "'; stashIcon='"+chrome.extension.getURL('img/stash128.png')+"';");
@@ -62,6 +63,11 @@ function injectEngine(){
 		featuresDef.resolve();
 		var val = response || {};
 		createInlineScript('var featuresData = ' + JSON.stringify(val) + ';');
+	});
+
+	extensionStorage.loadServer(function(response) {
+		serverDef.resolve();
+		createInlineScript('window.URL_JUNCTION = "/' + response + '";');
 	});
 
 	$.when(groupDef, hipchatDef, templateDef, notifStateDef, notifTypeDef, repomapDef, featuresDef).then(function(){
