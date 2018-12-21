@@ -20,7 +20,7 @@
 	<div class="container content" id="bitbucket-extension-options">
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active">
-				 <a href="#reviewers" aria-controls="reviewers" role="tab" data-toggle="tab">Reviewer Groups</a>
+				<a href="#reviewers" aria-controls="reviewers" role="tab" data-toggle="tab">Reviewer Groups</a>
 			</li>
 			<li role="presentation">
 				<a href="#template" aria-controls="template" role="tab" data-toggle="tab">PR Template</a>
@@ -40,7 +40,17 @@
 			<div id="reviewers" class="tab-pane active">
 				<div class="alert alert-info" role="alert">
 					<span class="block">Json format:</span>
-					<code>{ "groups": [{ "groupName":"group name", "reviewers": ["reviewer 1 name or email", "reviewer 2 name or email"] } ] }</code>
+					<pre><code>{
+  "groups": [
+    {
+      "groupName": "group name",
+      "reviewers": [
+        "reviewer 1 name or email",
+        "reviewer 2 name or email"
+      ]
+    }
+  ]
+}</code></pre>
 				</div>
 
 				<div>
@@ -48,11 +58,6 @@
 						<label for="text_json">json:</label>
 						<textarea class="form-control" rows="5" id="text_json"></textarea>
 					</div>
-
-					<!-- <div class="form-group">
-						<label for="hipchat_username">HipChat Username:</label>
-						<input type="text" class="form-control" id="hipchat_username" placeholder="HipChat username without @">
-					</div> -->
 				</div>
 			</div>
 

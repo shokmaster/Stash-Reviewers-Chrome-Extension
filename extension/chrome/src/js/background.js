@@ -4,7 +4,7 @@
  * @property URL_JUNCTION
  * @type String
  */
-window.URL_JUNCTION = window.URL_JUNCTION || '/stash';
+window.URL_JUNCTION = window.URL_JUNCTION || window.location.pathname.split('/', 2).join('/');
 
 // ff webextensions workaround
 chrome = chrome || browser;
@@ -127,7 +127,8 @@ function retrieveActivities() {
 			allPR.forEach(function(pr){
 				var prLink = '';
 				if(pr.links && pr.links.self) {
-					prLink = pr.links.self[0].href.replace(items.currentStashBaseUrl, '').replace('stash/', '');
+					var stashPath = window.URL_JUNCTION.slice(1) + '/';
+					prLink = pr.links.self[0].href.replace(items.currentStashBaseUrl, '').replace(stashPath, '');
 					prLink = items.currentStashBaseUrl + window.URL_JUNCTION + '/rest/api/1.0' + prLink + '/activities?avatarSize=64';
 				}
 
